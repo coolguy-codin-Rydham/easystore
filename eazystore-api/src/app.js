@@ -11,7 +11,9 @@ function buildApp() {
 
   app.use(cors({
     origin: 'https://eazystore-eight.vercel.app',
+    credentials: true,
   })); 
+
   app.use(express.json({ limit: '1mb' }));
   app.use(cookieParser(env.cookieSecret));
 
