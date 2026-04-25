@@ -7,9 +7,9 @@ async function main() {
   await connect();
   await seed();
   const app = buildApp();
-  // app.listen(env.port, () => {
-  //   console.log(`[server] listening on http://localhost:${env.port}`);
-  // });
+  app.listen(env.port, () => {
+    console.log(`[server] listening on http://localhost:${env.port}`);
+  });
 }
 
 main().catch((err) => {
