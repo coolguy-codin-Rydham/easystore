@@ -6,7 +6,7 @@ module.exports = {
     secret: process.env.JWT_SECRET || 'change_me',
     expiresIn: process.env.JWT_EXPIRES_IN || '4h',
   },
-  corsOrigin: process.env.CORS_ORIGIN || '*',
+  corsOrigin: "*",
   cookieSecret: process.env.COOKIE_SECRET || 'cookie_change_me',
   mongo: {
     url: process.env.MONGO_URL,
