@@ -8,7 +8,7 @@ const { notFound, errorHandler } = require('./middleware/error');
 function buildApp() {
   const app = express();
 
-  app.use(cors({ origin: env.corsOrigin, credentials: true }));
+  app.use(cors());
   app.use(express.json({ limit: '1mb' }));
   app.use(cookieParser(env.cookieSecret));
 
