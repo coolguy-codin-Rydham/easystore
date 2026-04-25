@@ -2,3 +2,5 @@ node_modules/
 mongo-data/
 .env.local
 *.log
+
+.vercel
