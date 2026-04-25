@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Type stack */
+  --font-primary: "Josefin Sans", system-ui, sans-serif;
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Atelier palette */
+  --color-paper: #F5F0E6;
+  --color-paper-light: #FBF8F1;
+  --color-ink: #1A1815;
+  --color-sepia: #7A6F5F;
+  --color-coral: #FF5A36;
+  --color-mustard: #F4C430;
+
+  /* Brand violet retained as accent */
+  --color-primary: #5B21B6;
+  --color-dark: #4C1D95;
+  --color-light: #DDD6FE;
+  --color-lighter: #F5F3FF;
+
+  /* Dark mode */
+  --color-darkbg: #0E0D0A;
+  --color-darksurface: #1B1916;
+
+  /* Legacy tokens kept for safety */
+  --color-normalbg: #F5F0E6;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-paper);
+  background-image:
+    radial-gradient(900px 500px at 100% 0%, rgba(255, 90, 54, 0.07), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(91, 33, 182, 0.07), transparent 60%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Paper grain overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+html.dark body {
+  color: var(--color-paper);
+  background-color: var(--color-darkbg);
+  background-image:
+    radial-gradient(900px 500px at 100% 0%, rgba(255, 90, 54, 0.09), transparent 60%),
+    radial-gradient(900px 500px at -10% 30%, rgba(221, 214, 254, 0.06), transparent 60%);
+}
+
+html.dark body::before {
+  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.94 0 0 0 0 0.9 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Type helpers */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Hard offset shadow — like printed paper */
+.shadow-hard {
+  box-shadow: 6px 6px 0 var(--color-ink);
+}
+.shadow-hard-sm {
+  box-shadow: 3px 3px 0 var(--color-ink);
+}
+.shadow-hard-coral {
+  box-shadow: 6px 6px 0 var(--color-coral);
+}
+html.dark .shadow-hard {
+  box-shadow: 6px 6px 0 var(--color-paper);
+}
+html.dark .shadow-hard-sm {
+  box-shadow: 3px 3px 0 var(--color-paper);
+}
+
+/* Stamp / badge — circular monospace label */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Marquee ticker */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker 45s linear infinite;
+}
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Subtle wobble for hover */
+@keyframes wobble {
+  0%, 100% { transform: rotate(-0.5deg); }
+  50% { transform: rotate(0.5deg); }
+}
+.animate-wobble {
+  animation: wobble 3s ease-in-out infinite;
+}
+
+/* Form field — atelier style: thick underline only */
+.field-atelier {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--color-ink);
+  padding: 0.5rem 0.25rem;
+  color: var(--color-ink);
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.field-atelier::placeholder {
+  color: var(--color-sepia);
+}
+.field-atelier:focus {
+  border-color: var(--color-coral);
+}
+html.dark .field-atelier {
+  color: var(--color-paper);
+  border-bottom-color: var(--color-paper);
+}
+html.dark .field-atelier::placeholder {
+  color: rgba(245, 240, 230, 0.5);
+}
+html.dark .field-atelier:focus {
+  border-color: var(--color-coral);
+}
+
+/* Card surface */
+.card-paper {
+  background: var(--color-paper-light);
+  border: 2px solid var(--color-ink);
+}
+html.dark .card-paper {
+  background: var(--color-darksurface);
+  border-color: var(--color-paper);
+}
+
+/* Numbered list (nice for receipts) */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
